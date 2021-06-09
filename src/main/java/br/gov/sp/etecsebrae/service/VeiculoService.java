@@ -45,13 +45,13 @@ public class VeiculoService {
 	}
 
 	public Veiculo save(Veiculo dto) throws Exception {
-		if (dto.getPlaca().isBlank()) {
+		if (dto.getPlaca() == null || dto.getPlaca().trim().isEmpty()) {
 			throw new Exception("A placa não pode estar em branco.");
 		}
-		if (dto.getImagem().isBlank()) {
+		if (dto.getImagem() == null || dto.getImagem().trim().isEmpty()) {
 			throw new Exception("A imagem não pode estar em branco.");
 		}
-		if (dto.getCor().isBlank()) {
+		if (dto.getCor() == null || dto.getCor().trim().isEmpty()) {
 			throw new Exception("A cor não pode estar em branco.");
 		}
 		var record = repository.getByCondutorAndPlaca(dto.getIdCondutor(), dto.getPlaca());

@@ -30,7 +30,7 @@ public class MarcaVeiculoService {
 	}
 
 	public MarcaVeiculo save(MarcaVeiculo dto) throws Exception {
-		if (dto.getMarca().isBlank()) {
+		if (dto.getMarca() == null || dto.getMarca().trim().isEmpty()) {
 			throw new Exception("A marca não pode estar em branco.");
 		}
 		var record = repository.getByMarca(dto.getMarca());

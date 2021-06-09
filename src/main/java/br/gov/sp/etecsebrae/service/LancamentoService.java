@@ -30,12 +30,19 @@ public class LancamentoService {
 		return fromTo(list);
 	}
 
-	public Lancamento getById(int id) {
-		LancamentoEntity entity = repository.getById(id);
-		return fromTo(entity);
+	public Lancamento getById(int id) throws Exception {
+		try {
+			LancamentoEntity entity = repository.getById(id);
+			return fromTo(entity);
+		} catch (Exception e) {
+			throw new Exception("O lançamento não foi encontrado no sistema.");
+		}
 	}
 
-	public Lancamento save(Lancamento dto) {
+	public Lancamento save(Lancamento dto) throws Exception {
+		if (dto.getDescricao() == null || dto.getDescricao().trim().isEmpty()) {
+			throw new Exception("A descrição não pode estar em branco.");
+		}
 		LancamentoEntity entity = repository.save(fromTo(dto));
 		return fromTo(entity);
 	}

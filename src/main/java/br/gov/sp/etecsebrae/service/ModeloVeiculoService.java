@@ -40,7 +40,7 @@ public class ModeloVeiculoService {
 	}
 
 	public ModeloVeiculo save(ModeloVeiculo dto) throws Exception {
-		if (dto.getModelo().isBlank()) {
+		if (dto.getModelo() == null || dto.getModelo().trim().isEmpty()) {
 			throw new Exception("O modelo não pode estar em branco.");
 		}
 		var record = repository.getByValues(dto.getIdTipoVeiculo(), dto.getIdMarcaVeiculo(), dto.getModelo());

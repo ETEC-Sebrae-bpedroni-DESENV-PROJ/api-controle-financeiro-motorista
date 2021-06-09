@@ -30,7 +30,7 @@ public class TipoVeiculoService {
 	}
 
 	public TipoVeiculo save(TipoVeiculo dto) throws Exception {
-		if (dto.getTipo().isBlank()) {
+		if (dto.getTipo() == null || dto.getTipo().trim().isEmpty()) {
 			throw new Exception("O tipo não pode estar em branco.");
 		}
 		var record = repository.getByTipo(dto.getTipo());

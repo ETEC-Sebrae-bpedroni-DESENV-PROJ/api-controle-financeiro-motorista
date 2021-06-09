@@ -30,10 +30,10 @@ public class ServicoService {
 	}
 
 	public Servico save(Servico dto) throws Exception {
-		if (dto.getServico().isBlank()) {
+		if (dto.getServico() == null || dto.getServico().trim().isEmpty()) {
 			throw new Exception("O serviço não pode estar em branco.");
 		}
-		if (dto.getImagem().isBlank()) {
+		if (dto.getImagem() == null || dto.getImagem().trim().isEmpty()) {
 			throw new Exception("A imagem não pode estar em branco.");
 		}
 		var record = repository.getByServico(dto.getServico());

@@ -39,37 +39,37 @@ public class CondutorService {
 	}
 
 	public Condutor save(Condutor dto) throws Exception {
-		if (dto.getNome().isBlank()) {
+		if (dto.getNome() == null || dto.getNome().trim().isEmpty()) {
 			throw new Exception("O nome não pode estar em branco.");
 		}
-		if (dto.getSobrenome().isBlank()) {
+		if (dto.getSobrenome() == null || dto.getSobrenome().trim().isEmpty()) {
 			throw new Exception("O sobrenome não pode estar em branco.");
 		}
-		if (dto.getEmail().isBlank()) {
+		if (dto.getEmail() == null || dto.getEmail().trim().isEmpty()) {
 			throw new Exception("O e-mail não pode estar em branco.");
 		}
-		if (dto.getSenha().isBlank()) {
+		if (dto.getSenha() == null || dto.getSenha().trim().isEmpty()) {
 			throw new Exception("A senha não pode estar em branco.");
 		}
-		if (dto.getTelefone().isBlank()) {
+		if (dto.getTelefone() == null || dto.getTelefone().trim().isEmpty()) {
 			throw new Exception("O telefone não pode estar em branco.");
 		}
-		if (dto.getEnderecoCep().isBlank()) {
+		if (dto.getEnderecoCep() == null || dto.getEnderecoCep().trim().isEmpty()) {
 			throw new Exception("O CEP do endereço não pode estar em branco.");
 		}
-		if (dto.getEnderecoLogradouro().isBlank()) {
+		if (dto.getEnderecoLogradouro() == null || dto.getEnderecoLogradouro().trim().isEmpty()) {
 			throw new Exception("O logradouro do endereço não pode estar em branco.");
 		}
-		if (dto.getEnderecoNumero().isBlank()) {
+		if (dto.getEnderecoNumero() == null || dto.getEnderecoNumero().trim().isEmpty()) {
 			throw new Exception("O número do endereço não pode estar em branco.");
 		}
-		if (dto.getEnderecoBairro().isBlank()) {
+		if (dto.getEnderecoBairro() == null || dto.getEnderecoBairro().trim().isEmpty()) {
 			throw new Exception("O bairo do endereço não pode estar em branco.");
 		}
-		if (dto.getEnderecoCidade().isBlank()) {
+		if (dto.getEnderecoCidade() == null || dto.getEnderecoCidade().trim().isEmpty()) {
 			throw new Exception("A cidade do endereço não pode estar em branco.");
 		}
-		if (dto.getEnderecoEstado().isBlank()) {
+		if (dto.getEnderecoEstado() == null || dto.getEnderecoEstado().trim().isEmpty()) {
 			throw new Exception("O estado do endereço não pode estar em branco.");
 		}
 		var record = repository.getByEmail(dto.getEmail());

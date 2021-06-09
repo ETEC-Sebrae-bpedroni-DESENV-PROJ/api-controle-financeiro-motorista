@@ -20,12 +20,23 @@ public class TipoCombustivelService {
 		return fromTo(list);
 	}
 
-	public TipoCombustivel getById(int id) {
-		TipoCombustivelEntity entity = repository.getById(id);
-		return fromTo(entity);
+	public TipoCombustivel getById(int id) throws Exception {
+		try {
+			TipoCombustivelEntity entity = repository.getById(id);
+			return fromTo(entity);
+		} catch (Exception e) {
+			throw new Exception("O tipo do combustível não foi encontrado no sistema.");
+		}
 	}
 
-	public TipoCombustivel save(TipoCombustivel dto) {
+	public TipoCombustivel save(TipoCombustivel dto) throws Exception {
+		if (dto.getTipoCombustivel() == null || dto.getTipoCombustivel().trim().isEmpty()) {
+			throw new Exception("O tipo do combustível não pode estar em branco.");
+		}
+		var record = repository.getByTipoCombustivel(dto.getTipoCombustivel());
+		if (record.isPresent() && record.get().getId() != dto.getId()) {
+			throw new Exception("O tipo do combustível fornecido já possui cadastro no sistema.");
+		}
 		TipoCombustivelEntity entity = repository.save(fromTo(dto));
 		return fromTo(entity);
 	}

@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +55,7 @@ public class VeiculoService {
 		if (dto.getCor() == null || dto.getCor().trim().isEmpty()) {
 			throw new Exception("A cor não pode estar em branco.");
 		}
-		var record = repository.getByCondutorAndPlaca(dto.getIdCondutor(), dto.getPlaca());
+		Optional<VeiculoEntity> record = repository.getByCondutorAndPlaca(dto.getIdCondutor(), dto.getPlaca());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("O veículo fornecido já possui cadastro no sistema.");
 		}

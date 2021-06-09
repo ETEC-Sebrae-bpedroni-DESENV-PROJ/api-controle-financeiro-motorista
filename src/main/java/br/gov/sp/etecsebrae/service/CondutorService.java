@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,7 +73,7 @@ public class CondutorService {
 		if (dto.getEnderecoEstado() == null || dto.getEnderecoEstado().trim().isEmpty()) {
 			throw new Exception("O estado do endereço não pode estar em branco.");
 		}
-		var record = repository.getByEmail(dto.getEmail());
+		Optional<CondutorEntity> record = repository.getByEmail(dto.getEmail());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("O e-mail fornecido já possui cadastro no sistema.");
 		}

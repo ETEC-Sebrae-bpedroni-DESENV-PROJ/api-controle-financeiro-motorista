@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ServicoService {
 		if (dto.getImagem() == null || dto.getImagem().trim().isEmpty()) {
 			throw new Exception("A imagem não pode estar em branco.");
 		}
-		var record = repository.getByServico(dto.getServico());
+		Optional<ServicoEntity> record = repository.getByServico(dto.getServico());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("O serviço fornecido já possui cadastro no sistema.");
 		}

@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class TipoVeiculoService {
 		if (dto.getTipo() == null || dto.getTipo().trim().isEmpty()) {
 			throw new Exception("O tipo não pode estar em branco.");
 		}
-		var record = repository.getByTipo(dto.getTipo());
+		Optional<TipoVeiculoEntity> record = repository.getByTipo(dto.getTipo());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("O tipo fornecido já possui cadastro no sistema.");
 		}

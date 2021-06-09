@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class MarcaVeiculoService {
 		if (dto.getMarca() == null || dto.getMarca().trim().isEmpty()) {
 			throw new Exception("A marca não pode estar em branco.");
 		}
-		var record = repository.getByMarca(dto.getMarca());
+		Optional<MarcaVeiculoEntity> record = repository.getByMarca(dto.getMarca());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("A marca fornecida já possui cadastro no sistema.");
 		}

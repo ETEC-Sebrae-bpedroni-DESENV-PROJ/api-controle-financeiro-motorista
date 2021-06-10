@@ -21,7 +21,7 @@ public class TipoVeiculoEntity {
 	@Column(name = "tipo", nullable = false, unique = true)
 	private String tipo;
 
-	@OneToMany(mappedBy = "tb_tipos_veiculos", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "tipo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ModeloVeiculoEntity> modelos;
 
 	public TipoVeiculoEntity() {

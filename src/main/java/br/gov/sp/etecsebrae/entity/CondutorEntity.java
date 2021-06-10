@@ -66,7 +66,7 @@ public class CondutorEntity {
 	@Column(name = "endereco_compl", nullable = true)
 	private String enderecoComplemento;
 
-	@OneToMany(mappedBy = "tb_condutores", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "condutor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<VeiculoEntity> veiculos;
 
 	public CondutorEntity() {

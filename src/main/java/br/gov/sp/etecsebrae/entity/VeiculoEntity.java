@@ -49,7 +49,7 @@ public class VeiculoEntity {
 	@Column(name = "media_kml", nullable = false)
 	private double mediaKml;
 
-	@OneToMany(mappedBy = "tb_condutores", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "veiculo", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LancamentoEntity> lancamentos;
 
 	public VeiculoEntity() {

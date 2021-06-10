@@ -28,6 +28,9 @@ public class LancamentoEntity {
 	@JoinColumn(name = "id_servico", referencedColumnName = "id", nullable = false)
 	private ServicoEntity servico;
 
+	@Column(name = "entrada", nullable = false, length = 1)
+	private int entrada;
+
 	@Column(name = "valor", nullable = false)
 	private double valor;
 
@@ -45,12 +48,13 @@ public class LancamentoEntity {
 		super();
 	}
 
-	public LancamentoEntity(int id, VeiculoEntity veiculo, ServicoEntity servico, double valor, Date data,
+	public LancamentoEntity(int id, VeiculoEntity veiculo, ServicoEntity servico, int entrada, double valor, Date data,
 			String descricao, String infoAdicional) {
 		super();
 		this.id = id;
 		this.veiculo = veiculo;
 		this.servico = servico;
+		this.entrada = entrada;
 		this.valor = valor;
 		this.data = data;
 		this.descricao = descricao;
@@ -79,6 +83,14 @@ public class LancamentoEntity {
 
 	public void setServico(ServicoEntity servico) {
 		this.servico = servico;
+	}
+
+	public int getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(int entrada) {
+		this.entrada = entrada;
 	}
 
 	public double getValor() {

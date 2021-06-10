@@ -3,6 +3,7 @@ package br.gov.sp.etecsebrae.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,16 @@ public class VeiculoService {
 	public List<Veiculo> getAll() {
 		List<VeiculoEntity> list = repository.findAll();
 		return fromTo(list);
+	}
+
+	public List<Veiculo> getByIdCondutor(int idCondutor) throws Exception {
+		try {
+			List<VeiculoEntity> list = repository.findAll().stream().filter(p -> p.getCondutor().getId() == idCondutor)
+					.collect(Collectors.toList());
+			return fromTo(list);
+		} catch (Exception e) {
+			throw new Exception("Os veículos do condutor não foram encontrados no sistema.");
+		}
 	}
 
 	public Veiculo getById(int id) throws Exception {

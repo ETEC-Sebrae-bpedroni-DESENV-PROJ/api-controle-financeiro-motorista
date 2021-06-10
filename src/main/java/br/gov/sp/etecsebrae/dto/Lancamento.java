@@ -22,6 +22,9 @@ public class Lancamento implements Serializable {
 	private int idServico;
 
 	@NotNull
+	private int entrada;
+
+	@NotNull
 	private double valor;
 
 	@NotNull
@@ -36,12 +39,13 @@ public class Lancamento implements Serializable {
 		super();
 	}
 
-	public Lancamento(int id, @NotNull int idVeiculo, @NotNull int idServico, @NotNull double valor, @NotNull Date data,
-			@NotBlank String descricao, @NotBlank String infoAdicional) {
+	public Lancamento(int id, @NotNull int idVeiculo, @NotNull int idServico, @NotNull int entrada,
+			@NotNull double valor, @NotNull Date data, @NotBlank String descricao, @NotBlank String infoAdicional) {
 		super();
 		this.id = id;
 		this.idVeiculo = idVeiculo;
 		this.idServico = idServico;
+		this.entrada = entrada;
 		this.valor = valor;
 		this.data = data;
 		this.descricao = descricao;
@@ -86,6 +90,14 @@ public class Lancamento implements Serializable {
 
 	public void setIdServico(int idServico) {
 		this.idServico = idServico;
+	}
+
+	public int getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(int entrada) {
+		this.entrada = entrada;
 	}
 
 	public double getValor() {

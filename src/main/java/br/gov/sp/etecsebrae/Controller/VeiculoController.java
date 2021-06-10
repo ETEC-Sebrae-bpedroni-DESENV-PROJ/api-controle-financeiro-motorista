@@ -29,7 +29,17 @@ public class VeiculoController {
 			List<Veiculo> list = service.getAll();
 			return ResponseEntity.ok(list);
 		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+		}
+	}
+
+	@GetMapping(path = { "/condutor/{id}", "/condutor/get-id/{id}", "/condutor/get_id/{id}", "/condutor/id/{id}" })
+	public ResponseEntity<?> getByIdCondutor(@PathVariable int id) {
+		try {
+			List<Veiculo> list = service.getByIdCondutor(id);
+			return ResponseEntity.ok(list);
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
 		}
 	}
 

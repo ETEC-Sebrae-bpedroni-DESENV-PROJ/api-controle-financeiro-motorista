@@ -22,7 +22,7 @@ public class ServicoEntity {
 	private String servico;
 
 	@Column(name = "imagem", nullable = false)
-	private String imagem;
+	private byte[] imagem;
 
 	@OneToMany(mappedBy = "servico", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LancamentoEntity> lancamentos;
@@ -31,7 +31,7 @@ public class ServicoEntity {
 		super();
 	}
 
-	public ServicoEntity(int id, String servico, String imagem) {
+	public ServicoEntity(int id, String servico, byte[] imagem) {
 		super();
 		this.id = id;
 		this.servico = servico;
@@ -54,11 +54,11 @@ public class ServicoEntity {
 		this.servico = servico;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 

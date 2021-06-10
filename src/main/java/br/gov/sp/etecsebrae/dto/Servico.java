@@ -12,14 +12,13 @@ public class Servico implements Serializable {
 	@NotBlank
 	private String servico;
 
-	@NotBlank
-	private String imagem;
+	private byte[] imagem;
 
 	public Servico() {
 		super();
 	}
 
-	public Servico(int id, @NotBlank String servico, @NotBlank String imagem) {
+	public Servico(int id, @NotBlank String servico, byte[] imagem) {
 		super();
 		this.id = id;
 		this.servico = servico;
@@ -42,11 +41,11 @@ public class Servico implements Serializable {
 		this.servico = servico;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 }

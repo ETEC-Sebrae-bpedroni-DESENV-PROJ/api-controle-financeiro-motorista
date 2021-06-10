@@ -29,7 +29,7 @@ public class ModeloVeiculoController {
 			List<ModeloVeiculo> list = service.getAll();
 			return ResponseEntity.ok(list);
 		} catch (Exception e) {
-			return ResponseEntity.notFound().build();
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
 		}
 	}
 

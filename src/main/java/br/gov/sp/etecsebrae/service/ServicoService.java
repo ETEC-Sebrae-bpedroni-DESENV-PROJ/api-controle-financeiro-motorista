@@ -34,9 +34,6 @@ public class ServicoService {
 		if (dto.getServico() == null || dto.getServico().trim().isEmpty()) {
 			throw new Exception("O serviço não pode estar em branco.");
 		}
-		if (dto.getImagem() == null || dto.getImagem().trim().isEmpty()) {
-			throw new Exception("A imagem não pode estar em branco.");
-		}
 		Optional<ServicoEntity> record = repository.getByServico(dto.getServico());
 		if (record.isPresent() && record.get().getId() != dto.getId()) {
 			throw new Exception("O serviço fornecido já possui cadastro no sistema.");

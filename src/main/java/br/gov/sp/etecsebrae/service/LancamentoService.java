@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,26 @@ public class LancamentoService {
 		return fromTo(list);
 	}
 
+	public List<Lancamento> getByIdVeiculo(int idVeiculo) throws Exception {
+		try {
+			List<LancamentoEntity> list = repository.findAll().stream().filter(p -> p.getVeiculo().getId() == idVeiculo)
+					.collect(Collectors.toList());
+			return fromTo(list);
+		} catch (Exception e) {
+			throw new Exception("Os lançamentos do veículo não foram encontrado no sistema.");
+		}
+	}
+
+	public List<Lancamento> getByIdCondutor(int idCondutor) throws Exception {
+		try {
+			List<LancamentoEntity> list = repository.findAll().stream()
+					.filter(p -> p.getVeiculo().getCondutor().getId() == idCondutor).collect(Collectors.toList());
+			return fromTo(list);
+		} catch (Exception e) {
+			throw new Exception("Os lançamentos do condutor não foram encontrado no sistema.");
+		}
+	}
+
 	public Lancamento getById(int id) throws Exception {
 		try {
 			LancamentoEntity entity = repository.getById(id);
@@ -51,7 +72,8 @@ public class LancamentoService {
 
 	public Lancamento fromTo(LancamentoEntity entity) {
 		Lancamento dto = new Lancamento(entity.getId(), entity.getVeiculo().getId(), entity.getServico().getId(),
-				entity.getValor(), entity.getData(), entity.getDescricao(), entity.getInfoAdicional());
+				entity.getEntrada(), entity.getValor(), entity.getData(), entity.getDescricao(),
+				entity.getInfoAdicional());
 		dto.setVeiculo(veiculoService.fromTo(entity.getVeiculo()));
 		dto.setServico(servicoService.fromTo(entity.getServico()));
 		return dto;
@@ -68,7 +90,7 @@ public class LancamentoService {
 	public LancamentoEntity fromTo(Lancamento dto) throws Exception {
 		VeiculoEntity veiculo = veiculoService.fromTo(veiculoService.getById(dto.getIdVeiculo()));
 		ServicoEntity servico = servicoService.fromTo(servicoService.getById(dto.getIdServico()));
-		return new LancamentoEntity(dto.getId(), veiculo, servico, dto.getValor(), dto.getData(), dto.getDescricao(),
-				dto.getInfoAdicional());
+		return new LancamentoEntity(dto.getId(), veiculo, servico, dto.getEntrada(), dto.getValor(), dto.getData(),
+				dto.getDescricao(), dto.getInfoAdicional());
 	}
 }

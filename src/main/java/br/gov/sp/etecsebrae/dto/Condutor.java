@@ -2,7 +2,6 @@ package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -51,8 +50,6 @@ public class Condutor implements Serializable {
 	private String enderecoEstado;
 
 	private String enderecoComplemento;
-
-	private List<Veiculo> veiculos;
 
 	public Condutor() {
 		super();
@@ -199,13 +196,5 @@ public class Condutor implements Serializable {
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
 		this.enderecoComplemento = enderecoComplemento;
-	}
-
-	public List<Veiculo> getVeiculos() {
-		return veiculos;
-	}
-
-	public void setVeiculos(List<Veiculo> veiculos) {
-		this.veiculos = veiculos;
 	}
 }

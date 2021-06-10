@@ -16,9 +16,6 @@ public class CondutorService {
 	@Autowired
 	private CondutorRepository repository;
 
-	@Autowired
-	VeiculoService veiculoService;
-
 	public List<Condutor> getAll() {
 		List<CondutorEntity> list = repository.findAll();
 		return fromTo(list);
@@ -93,7 +90,6 @@ public class CondutorService {
 				entity.getEmail(), entity.getSenha(), entity.getTelefone(), entity.getImagem(), entity.getEnderecoCep(),
 				entity.getEnderecoLogradouro(), entity.getEnderecoNumero(), entity.getEnderecoBairro(),
 				entity.getEnderecoCidade(), entity.getEnderecoEstado(), entity.getEnderecoComplemento());
-		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
 		return dto;
 	}
 

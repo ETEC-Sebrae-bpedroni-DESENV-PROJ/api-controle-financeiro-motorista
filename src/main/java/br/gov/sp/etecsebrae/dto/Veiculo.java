@@ -1,7 +1,6 @@
 package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -39,8 +38,6 @@ public class Veiculo implements Serializable {
 
 	@NotNull
 	private double mediaKml;
-
-	private List<Lancamento> lancamentos;
 
 	public Veiculo() {
 		super();
@@ -154,13 +151,5 @@ public class Veiculo implements Serializable {
 
 	public void setMediaKml(double mediaKml) {
 		this.mediaKml = mediaKml;
-	}
-
-	public List<Lancamento> getLancamentos() {
-		return lancamentos;
-	}
-
-	public void setLancamentos(List<Lancamento> lancamentos) {
-		this.lancamentos = lancamentos;
 	}
 }

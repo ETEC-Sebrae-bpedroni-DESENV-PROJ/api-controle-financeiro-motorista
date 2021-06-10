@@ -16,9 +16,6 @@ public class TipoVeiculoService {
 	@Autowired
 	private TipoVeiculoRepository repository;
 
-	@Autowired
-	ModeloVeiculoService modeloVeiculoService;
-
 	public List<TipoVeiculo> getAll() {
 		List<TipoVeiculoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -51,7 +48,6 @@ public class TipoVeiculoService {
 
 	public TipoVeiculo fromTo(TipoVeiculoEntity entity) {
 		TipoVeiculo dto = new TipoVeiculo(entity.getId(), entity.getTipo());
-		dto.setModelos(modeloVeiculoService.fromTo(entity.getModelos()));
 		return dto;
 	}
 

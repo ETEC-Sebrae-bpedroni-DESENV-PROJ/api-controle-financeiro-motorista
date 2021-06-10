@@ -24,9 +24,6 @@ public class ModeloVeiculoService {
 	@Autowired
 	private MarcaVeiculoService marcaVeiculoService;
 
-	@Autowired
-	VeiculoService veiculoService;
-
 	public List<ModeloVeiculo> getAll() {
 		List<ModeloVeiculoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -63,7 +60,6 @@ public class ModeloVeiculoService {
 				entity.getModelo());
 		dto.setTipoVeiculo(tipoVeiculoService.fromTo(entity.getTipo()));
 		dto.setMarcaVeiculo(marcaVeiculoService.fromTo(entity.getMarca()));
-		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
 		return dto;
 	}
 

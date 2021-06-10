@@ -16,9 +16,6 @@ public class ServicoService {
 	@Autowired
 	private ServicoRepository repository;
 
-	@Autowired
-	LancamentoService lancamentoService;
-
 	public List<Servico> getAll() {
 		List<ServicoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -54,7 +51,6 @@ public class ServicoService {
 
 	public Servico fromTo(ServicoEntity entity) {
 		Servico dto = new Servico(entity.getId(), entity.getServico(), entity.getImagem());
-		dto.setLancamentos(lancamentoService.fromTo(entity.getLancamentos()));
 		return dto;
 	}
 

@@ -1,7 +1,6 @@
 package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -12,8 +11,6 @@ public class MarcaVeiculo implements Serializable {
 
 	@NotBlank
 	private String marca;
-
-	private List<ModeloVeiculo> modelos;
 
 	public MarcaVeiculo() {
 		super();
@@ -39,13 +36,5 @@ public class MarcaVeiculo implements Serializable {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
-	}
-
-	public List<ModeloVeiculo> getModelos() {
-		return modelos;
-	}
-
-	public void setModelos(List<ModeloVeiculo> modelos) {
-		this.modelos = modelos;
 	}
 }

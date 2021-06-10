@@ -16,9 +16,6 @@ public class TipoCombustivelService {
 	@Autowired
 	private TipoCombustivelRepository repository;
 
-	@Autowired
-	VeiculoService veiculoService;
-
 	public List<TipoCombustivel> getAll() {
 		List<TipoCombustivelEntity> list = repository.findAll();
 		return fromTo(list);
@@ -51,7 +48,6 @@ public class TipoCombustivelService {
 
 	public TipoCombustivel fromTo(TipoCombustivelEntity entity) {
 		TipoCombustivel dto = new TipoCombustivel(entity.getId(), entity.getTipoCombustivel());
-		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
 		return dto;
 	}
 

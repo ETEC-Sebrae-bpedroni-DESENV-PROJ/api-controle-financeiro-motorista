@@ -1,11 +1,11 @@
-truncate tb_lancamentos cascade;
-truncate tb_servicos cascade;
-truncate tb_veiculos cascade;
-truncate tb_condutores cascade;
-truncate tb_tipos_combutivel cascade;
-truncate tb_modelos_veiculos cascade;
-truncate tb_marcas_veiculos cascade;
-truncate tb_tipos_veiculos cascade;
+-- truncate tb_lancamentos restart identity cascade;
+-- truncate tb_servicos restart identity cascade;
+-- truncate tb_veiculos restart identity cascade;
+-- truncate tb_condutores restart identity cascade;
+-- truncate tb_tipos_combustivel restart identity cascade;
+-- truncate tb_modelos_veiculos restart identity cascade;
+-- truncate tb_marcas_veiculos restart identity cascade;
+-- truncate tb_tipos_veiculos restart identity cascade;
 -- tb_tipos_veiculos:
 INSERT INTO tb_tipos_veiculos (tipo) VALUES ('CARRO');
 INSERT INTO tb_tipos_veiculos (tipo) VALUES ('MOTO');

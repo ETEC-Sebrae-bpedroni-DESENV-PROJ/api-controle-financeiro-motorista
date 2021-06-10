@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,14 +17,14 @@ import javax.persistence.TemporalType;
 @Table(name = "tb_lancamentos")
 public class LancamentoEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sq_lancamentos")
 	private int id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "id_veiculo", referencedColumnName = "id", nullable = false)
 	private VeiculoEntity veiculo;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "id_servico", referencedColumnName = "id", nullable = false)
 	private ServicoEntity servico;
 

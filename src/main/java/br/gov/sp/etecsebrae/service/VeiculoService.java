@@ -12,9 +12,6 @@ import br.gov.sp.etecsebrae.entity.CondutorEntity;
 import br.gov.sp.etecsebrae.entity.ModeloVeiculoEntity;
 import br.gov.sp.etecsebrae.entity.TipoCombustivelEntity;
 import br.gov.sp.etecsebrae.entity.VeiculoEntity;
-import br.gov.sp.etecsebrae.repository.CondutorRepository;
-import br.gov.sp.etecsebrae.repository.ModeloVeiculoRepository;
-import br.gov.sp.etecsebrae.repository.TipoCombustivelRepository;
 import br.gov.sp.etecsebrae.repository.VeiculoRepository;
 
 @Service
@@ -23,13 +20,16 @@ public class VeiculoService {
 	private VeiculoRepository repository;
 
 	@Autowired
-	private CondutorRepository condutorRepository;
+	private CondutorService condutorService;
 
 	@Autowired
-	private ModeloVeiculoRepository modeloVeiculoRepository;
+	private ModeloVeiculoService modeloVeiculoService;
 
 	@Autowired
-	private TipoCombustivelRepository tipoCombustivelRepository;
+	private TipoCombustivelService tipoCombustivelService;
+
+	@Autowired
+	LancamentoService lancamentoService;
 
 	public List<Veiculo> getAll() {
 		List<VeiculoEntity> list = repository.findAll();
@@ -49,9 +49,6 @@ public class VeiculoService {
 		if (dto.getPlaca() == null || dto.getPlaca().trim().isEmpty()) {
 			throw new Exception("A placa não pode estar em branco.");
 		}
-		if (dto.getImagem() == null || dto.getImagem().trim().isEmpty()) {
-			throw new Exception("A imagem não pode estar em branco.");
-		}
 		if (dto.getCor() == null || dto.getCor().trim().isEmpty()) {
 			throw new Exception("A cor não pode estar em branco.");
 		}
@@ -63,17 +60,22 @@ public class VeiculoService {
 		return fromTo(entity);
 	}
 
-	public void delete(Veiculo dto) {
+	public void delete(Veiculo dto) throws Exception {
 		repository.delete(fromTo(dto));
 	}
 
-	private Veiculo fromTo(VeiculoEntity entity) {
-		return new Veiculo(entity.getId(), entity.getCondutor().getId(), entity.getModelo().getId(), entity.getPlaca(),
-				entity.getImagem(), entity.getCor(), entity.getAno(), entity.getTipoCombustivel().getId(),
-				entity.getMediaKml());
+	public Veiculo fromTo(VeiculoEntity entity) {
+		Veiculo dto = new Veiculo(entity.getId(), entity.getCondutor().getId(), entity.getModelo().getId(),
+				entity.getPlaca(), entity.getImagem(), entity.getCor(), entity.getAno(),
+				entity.getTipoCombustivel().getId(), entity.getMediaKml());
+		dto.setCondutor(condutorService.fromTo(entity.getCondutor()));
+		dto.setModeloVeiculo(modeloVeiculoService.fromTo(entity.getModelo()));
+		dto.setTipoCombustivel(tipoCombustivelService.fromTo(entity.getTipoCombustivel()));
+		dto.setLancamentos(lancamentoService.fromTo(entity.getLancamentos()));
+		return dto;
 	}
 
-	private List<Veiculo> fromTo(List<VeiculoEntity> list) {
+	public List<Veiculo> fromTo(List<VeiculoEntity> list) {
 		List<Veiculo> dtoList = new ArrayList<Veiculo>();
 		for (VeiculoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -81,10 +83,12 @@ public class VeiculoService {
 		return dtoList;
 	}
 
-	private VeiculoEntity fromTo(Veiculo dto) {
-		CondutorEntity condutor = condutorRepository.getById(dto.getIdCondutor());
-		ModeloVeiculoEntity modeloVeiculo = modeloVeiculoRepository.getById(dto.getIdModeloVeiculo());
-		TipoCombustivelEntity tipoCombustivel = tipoCombustivelRepository.getById(dto.getIdTipoCombustivel());
+	public VeiculoEntity fromTo(Veiculo dto) throws Exception {
+		CondutorEntity condutor = condutorService.fromTo(condutorService.getById(dto.getIdCondutor()));
+		ModeloVeiculoEntity modeloVeiculo = modeloVeiculoService
+				.fromTo(modeloVeiculoService.getById(dto.getIdModeloVeiculo()));
+		TipoCombustivelEntity tipoCombustivel = tipoCombustivelService
+				.fromTo(tipoCombustivelService.getById(dto.getIdTipoCombustivel()));
 		return new VeiculoEntity(dto.getId(), condutor, modeloVeiculo, dto.getPlaca(), dto.getImagem(), dto.getCor(),
 				dto.getAno(), tipoCombustivel, dto.getMediaKml());
 	}

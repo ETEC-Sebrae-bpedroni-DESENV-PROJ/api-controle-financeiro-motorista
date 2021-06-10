@@ -1,6 +1,7 @@
 package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -10,8 +11,12 @@ public class Veiculo implements Serializable {
 
 	private int id;
 
+	private Condutor condutor;
+
 	@NotNull
 	private int idCondutor;
+
+	private ModeloVeiculo modeloVeiculo;
 
 	@NotNull
 	private int idModeloVeiculo;
@@ -19,8 +24,7 @@ public class Veiculo implements Serializable {
 	@NotBlank
 	private String placa;
 
-	@NotBlank
-	private String imagem;
+	private byte[] imagem;
 
 	@NotBlank
 	private String cor;
@@ -28,19 +32,22 @@ public class Veiculo implements Serializable {
 	@NotNull
 	private int ano;
 
+	private TipoCombustivel tipoCombustivel;
+
 	@NotNull
 	private int idTipoCombustivel;
 
 	@NotNull
 	private double mediaKml;
 
+	private List<Lancamento> lancamentos;
+
 	public Veiculo() {
 		super();
 	}
 
-	public Veiculo(int id, @NotNull int idCondutor, @NotNull int idModeloVeiculo, @NotBlank String placa,
-			@NotBlank String imagem, @NotBlank String cor, @NotNull int ano, @NotNull int idTipoCombustivel,
-			@NotNull double mediaKml) {
+	public Veiculo(int id, @NotNull int idCondutor, @NotNull int idModeloVeiculo, @NotBlank String placa, byte[] imagem,
+			@NotBlank String cor, @NotNull int ano, @NotNull int idTipoCombustivel, @NotNull double mediaKml) {
 		super();
 		this.id = id;
 		this.idCondutor = idCondutor;
@@ -61,12 +68,28 @@ public class Veiculo implements Serializable {
 		this.id = id;
 	}
 
+	public Condutor getCondutor() {
+		return condutor;
+	}
+
+	public void setCondutor(Condutor condutor) {
+		this.condutor = condutor;
+	}
+
 	public int getIdCondutor() {
 		return idCondutor;
 	}
 
 	public void setIdCondutor(int idCondutor) {
 		this.idCondutor = idCondutor;
+	}
+
+	public ModeloVeiculo getModeloVeiculo() {
+		return modeloVeiculo;
+	}
+
+	public void setModeloVeiculo(ModeloVeiculo modeloVeiculo) {
+		this.modeloVeiculo = modeloVeiculo;
 	}
 
 	public int getIdModeloVeiculo() {
@@ -85,11 +108,11 @@ public class Veiculo implements Serializable {
 		this.placa = placa;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
@@ -109,6 +132,14 @@ public class Veiculo implements Serializable {
 		this.ano = ano;
 	}
 
+	public TipoCombustivel getTipoCombustivel() {
+		return tipoCombustivel;
+	}
+
+	public void setTipoCombustivel(TipoCombustivel tipoCombustivel) {
+		this.tipoCombustivel = tipoCombustivel;
+	}
+
 	public int getIdTipoCombustivel() {
 		return idTipoCombustivel;
 	}
@@ -123,5 +154,13 @@ public class Veiculo implements Serializable {
 
 	public void setMediaKml(double mediaKml) {
 		this.mediaKml = mediaKml;
+	}
+
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 }

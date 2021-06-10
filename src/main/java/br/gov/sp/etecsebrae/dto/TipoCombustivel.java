@@ -1,6 +1,7 @@
 package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -15,6 +16,8 @@ public class TipoCombustivel implements Serializable {
 	public TipoCombustivel() {
 		super();
 	}
+
+	private List<Veiculo> veiculos;
 
 	public TipoCombustivel(int id, @NotBlank String tipoCombustivel) {
 		super();
@@ -36,5 +39,13 @@ public class TipoCombustivel implements Serializable {
 
 	public void setTipoCombustivel(String tipoCombustivel) {
 		this.tipoCombustivel = tipoCombustivel;
+	}
+
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 }

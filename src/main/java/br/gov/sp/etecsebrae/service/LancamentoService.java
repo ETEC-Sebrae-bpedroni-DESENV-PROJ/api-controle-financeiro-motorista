@@ -11,8 +11,6 @@ import br.gov.sp.etecsebrae.entity.LancamentoEntity;
 import br.gov.sp.etecsebrae.entity.ServicoEntity;
 import br.gov.sp.etecsebrae.entity.VeiculoEntity;
 import br.gov.sp.etecsebrae.repository.LancamentoRepository;
-import br.gov.sp.etecsebrae.repository.ServicoRepository;
-import br.gov.sp.etecsebrae.repository.VeiculoRepository;
 
 @Service
 public class LancamentoService {
@@ -20,10 +18,10 @@ public class LancamentoService {
 	private LancamentoRepository repository;
 
 	@Autowired
-	private VeiculoRepository veiculoRepository;
+	private VeiculoService veiculoService;
 
 	@Autowired
-	private ServicoRepository servicoRepository;
+	private ServicoService servicoService;
 
 	public List<Lancamento> getAll() {
 		List<LancamentoEntity> list = repository.findAll();
@@ -47,16 +45,19 @@ public class LancamentoService {
 		return fromTo(entity);
 	}
 
-	public void delete(Lancamento dto) {
+	public void delete(Lancamento dto) throws Exception {
 		repository.delete(fromTo(dto));
 	}
 
-	private Lancamento fromTo(LancamentoEntity entity) {
-		return new Lancamento(entity.getId(), entity.getVeiculo().getId(), entity.getServico().getId(),
+	public Lancamento fromTo(LancamentoEntity entity) {
+		Lancamento dto = new Lancamento(entity.getId(), entity.getVeiculo().getId(), entity.getServico().getId(),
 				entity.getValor(), entity.getData(), entity.getDescricao(), entity.getInfoAdicional());
+		dto.setVeiculo(veiculoService.fromTo(entity.getVeiculo()));
+		dto.setServico(servicoService.fromTo(entity.getServico()));
+		return dto;
 	}
 
-	private List<Lancamento> fromTo(List<LancamentoEntity> list) {
+	public List<Lancamento> fromTo(List<LancamentoEntity> list) {
 		List<Lancamento> dtoList = new ArrayList<Lancamento>();
 		for (LancamentoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -64,9 +65,9 @@ public class LancamentoService {
 		return dtoList;
 	}
 
-	private LancamentoEntity fromTo(Lancamento dto) {
-		VeiculoEntity veiculo = veiculoRepository.getById(dto.getIdVeiculo());
-		ServicoEntity servico = servicoRepository.getById(dto.getIdServico());
+	public LancamentoEntity fromTo(Lancamento dto) throws Exception {
+		VeiculoEntity veiculo = veiculoService.fromTo(veiculoService.getById(dto.getIdVeiculo()));
+		ServicoEntity servico = servicoService.fromTo(servicoService.getById(dto.getIdServico()));
 		return new LancamentoEntity(dto.getId(), veiculo, servico, dto.getValor(), dto.getData(), dto.getDescricao(),
 				dto.getInfoAdicional());
 	}

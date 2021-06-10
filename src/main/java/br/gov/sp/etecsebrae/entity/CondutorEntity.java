@@ -1,12 +1,16 @@
 package br.gov.sp.etecsebrae.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -15,7 +19,7 @@ import javax.persistence.TemporalType;
 @Table(name = "tb_condutores")
 public class CondutorEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sq_condutores")
 	private int id;
 
 	@Column(name = "nome", nullable = false)
@@ -37,8 +41,9 @@ public class CondutorEntity {
 	@Column(name = "telefone", nullable = false)
 	private String telefone;
 
+	@Lob
 	@Column(name = "imagem", nullable = true)
-	private String imagem;
+	private byte[] imagem;
 
 	@Column(name = "endereco_cep", nullable = false)
 	private String enderecoCep;
@@ -61,12 +66,15 @@ public class CondutorEntity {
 	@Column(name = "endereco_compl", nullable = true)
 	private String enderecoComplemento;
 
+	@OneToMany(mappedBy = "tb_condutores", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VeiculoEntity> veiculos;
+
 	public CondutorEntity() {
 		super();
 	}
 
 	public CondutorEntity(int id, String nome, String sobrenome, Date dataNascimento, String email, String senha,
-			String telefone, String imagem, String enderecoCep, String enderecoLogradouro, String enderecoNumero,
+			String telefone, byte[] imagem, String enderecoCep, String enderecoLogradouro, String enderecoNumero,
 			String enderecoBairro, String enderecoCidade, String enderecoEstado, String enderecoComplemento) {
 		super();
 		this.id = id;
@@ -142,11 +150,11 @@ public class CondutorEntity {
 		this.telefone = telefone;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
@@ -204,5 +212,13 @@ public class CondutorEntity {
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
 		this.enderecoComplemento = enderecoComplemento;
+	}
+
+	public List<VeiculoEntity> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<VeiculoEntity> veiculos) {
+		this.veiculos = veiculos;
 	}
 }

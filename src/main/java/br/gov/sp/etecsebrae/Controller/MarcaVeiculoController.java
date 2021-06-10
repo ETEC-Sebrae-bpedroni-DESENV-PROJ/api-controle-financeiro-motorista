@@ -18,12 +18,12 @@ import br.gov.sp.etecsebrae.dto.MarcaVeiculo;
 import br.gov.sp.etecsebrae.service.MarcaVeiculoService;
 
 @RestController
-@RequestMapping({ "/marca-veiculo" })
+@RequestMapping({ "/marca-veiculo", "/marca_veiculo" })
 public class MarcaVeiculoController {
 	@Autowired
 	private MarcaVeiculoService service;
 
-	@GetMapping(path = { "", "/get-all", "/all" })
+	@GetMapping(path = { "", "/get-all", "/get_all", "/all" })
 	public ResponseEntity<?> getAll() {
 		try {
 			List<MarcaVeiculo> list = service.getAll();
@@ -33,7 +33,7 @@ public class MarcaVeiculoController {
 		}
 	}
 
-	@GetMapping(path = { "/{id}", "/get-id/{id}", "/id/{id}" })
+	@GetMapping(path = { "/{id}", "/get-id/{id}", "/get_id/{id}", "/id/{id}" })
 	public ResponseEntity<?> getById(@PathVariable int id) {
 		try {
 			return ResponseEntity.ok(service.getById(id));

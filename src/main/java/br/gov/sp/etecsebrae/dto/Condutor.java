@@ -2,6 +2,7 @@ package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,7 +30,7 @@ public class Condutor implements Serializable {
 	@NotBlank
 	private String telefone;
 
-	private String imagem;
+	private byte[] imagem;
 
 	@NotBlank
 	private String enderecoCep;
@@ -51,15 +52,17 @@ public class Condutor implements Serializable {
 
 	private String enderecoComplemento;
 
+	private List<Veiculo> veiculos;
+
 	public Condutor() {
 		super();
 	}
 
 	public Condutor(int id, @NotBlank String nome, @NotBlank String sobrenome, @NotNull Date dataNascimento,
-			@NotBlank String email, @NotBlank String senha, @NotBlank String telefone, @NotBlank String imagem,
+			@NotBlank String email, @NotBlank String senha, @NotBlank String telefone, byte[] imagem,
 			@NotBlank String enderecoCep, @NotBlank String enderecoLogradouro, @NotBlank String enderecoNumero,
 			@NotBlank String enderecoBairro, @NotBlank String enderecoCidade, @NotBlank String enderecoEstado,
-			@NotBlank String enderecoComplemento) {
+			String enderecoComplemento) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -134,11 +137,11 @@ public class Condutor implements Serializable {
 		this.telefone = telefone;
 	}
 
-	public String getImagem() {
+	public byte[] getImagem() {
 		return imagem;
 	}
 
-	public void setImagem(String imagem) {
+	public void setImagem(byte[] imagem) {
 		this.imagem = imagem;
 	}
 
@@ -196,5 +199,13 @@ public class Condutor implements Serializable {
 
 	public void setEnderecoComplemento(String enderecoComplemento) {
 		this.enderecoComplemento = enderecoComplemento;
+	}
+
+	public List<Veiculo> getVeiculos() {
+		return veiculos;
+	}
+
+	public void setVeiculos(List<Veiculo> veiculos) {
+		this.veiculos = veiculos;
 	}
 }

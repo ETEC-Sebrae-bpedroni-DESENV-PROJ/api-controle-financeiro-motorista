@@ -18,12 +18,12 @@ import br.gov.sp.etecsebrae.dto.TipoVeiculo;
 import br.gov.sp.etecsebrae.service.TipoVeiculoService;
 
 @RestController
-@RequestMapping({ "/tipo-veiculo" })
+@RequestMapping({ "/tipo-veiculo", "/tipo_veiculo" })
 public class TipoVeiculoController {
 	@Autowired
 	private TipoVeiculoService service;
 
-	@GetMapping(path = { "", "/get-all", "/all" })
+	@GetMapping(path = { "", "/get-all", "/get_all", "/all" })
 	public ResponseEntity<?> getAll() {
 		try {
 			List<TipoVeiculo> list = service.getAll();
@@ -33,7 +33,7 @@ public class TipoVeiculoController {
 		}
 	}
 
-	@GetMapping(path = { "/{id}", "/get-id/{id}", "/id/{id}" })
+	@GetMapping(path = { "/{id}", "/get-id/{id}", "/get_id/{id}", "/id/{id}" })
 	public ResponseEntity<?> getById(@PathVariable int id) {
 		try {
 			return ResponseEntity.ok(service.getById(id));

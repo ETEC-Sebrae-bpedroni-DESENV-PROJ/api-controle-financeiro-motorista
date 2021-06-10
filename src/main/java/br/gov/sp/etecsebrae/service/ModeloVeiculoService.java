@@ -11,9 +11,7 @@ import br.gov.sp.etecsebrae.dto.ModeloVeiculo;
 import br.gov.sp.etecsebrae.entity.MarcaVeiculoEntity;
 import br.gov.sp.etecsebrae.entity.ModeloVeiculoEntity;
 import br.gov.sp.etecsebrae.entity.TipoVeiculoEntity;
-import br.gov.sp.etecsebrae.repository.MarcaVeiculoRepository;
 import br.gov.sp.etecsebrae.repository.ModeloVeiculoRepository;
-import br.gov.sp.etecsebrae.repository.TipoVeiculoRepository;
 
 @Service
 public class ModeloVeiculoService {
@@ -21,10 +19,13 @@ public class ModeloVeiculoService {
 	private ModeloVeiculoRepository repository;
 
 	@Autowired
-	private TipoVeiculoRepository tipoVeiculoRepository;
+	private TipoVeiculoService tipoVeiculoService;
 
 	@Autowired
-	private MarcaVeiculoRepository marcaVeiculoRepository;
+	private MarcaVeiculoService marcaVeiculoService;
+
+	@Autowired
+	VeiculoService veiculoService;
 
 	public List<ModeloVeiculo> getAll() {
 		List<ModeloVeiculoEntity> list = repository.findAll();
@@ -53,16 +54,20 @@ public class ModeloVeiculoService {
 		return fromTo(entity);
 	}
 
-	public void delete(ModeloVeiculo dto) {
+	public void delete(ModeloVeiculo dto) throws Exception {
 		repository.delete(fromTo(dto));
 	}
 
-	private ModeloVeiculo fromTo(ModeloVeiculoEntity entity) {
-		return new ModeloVeiculo(entity.getId(), entity.getTipo().getId(), entity.getMarca().getId(),
+	public ModeloVeiculo fromTo(ModeloVeiculoEntity entity) {
+		ModeloVeiculo dto = new ModeloVeiculo(entity.getId(), entity.getTipo().getId(), entity.getMarca().getId(),
 				entity.getModelo());
+		dto.setTipoVeiculo(tipoVeiculoService.fromTo(entity.getTipo()));
+		dto.setMarcaVeiculo(marcaVeiculoService.fromTo(entity.getMarca()));
+		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
+		return dto;
 	}
 
-	private List<ModeloVeiculo> fromTo(List<ModeloVeiculoEntity> list) {
+	public List<ModeloVeiculo> fromTo(List<ModeloVeiculoEntity> list) {
 		List<ModeloVeiculo> dtoList = new ArrayList<ModeloVeiculo>();
 		for (ModeloVeiculoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -70,9 +75,10 @@ public class ModeloVeiculoService {
 		return dtoList;
 	}
 
-	private ModeloVeiculoEntity fromTo(ModeloVeiculo dto) {
-		TipoVeiculoEntity tipoVeiculo = tipoVeiculoRepository.getById(dto.getIdTipoVeiculo());
-		MarcaVeiculoEntity marcaVeiculo = marcaVeiculoRepository.getById(dto.getIdMarcaVeiculo());
+	public ModeloVeiculoEntity fromTo(ModeloVeiculo dto) throws Exception {
+		TipoVeiculoEntity tipoVeiculo = tipoVeiculoService.fromTo(tipoVeiculoService.getById(dto.getIdTipoVeiculo()));
+		MarcaVeiculoEntity marcaVeiculo = marcaVeiculoService
+				.fromTo(marcaVeiculoService.getById(dto.getIdMarcaVeiculo()));
 		return new ModeloVeiculoEntity(dto.getId(), tipoVeiculo, marcaVeiculo, dto.getModelo());
 	}
 }

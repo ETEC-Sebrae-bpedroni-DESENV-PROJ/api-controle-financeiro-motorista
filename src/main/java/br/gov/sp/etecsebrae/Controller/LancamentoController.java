@@ -23,7 +23,7 @@ public class LancamentoController {
 	@Autowired
 	private LancamentoService service;
 
-	@GetMapping(path = { "", "/get-all", "/all" })
+	@GetMapping(path = { "", "/get-all", "/get_all", "/all" })
 	public ResponseEntity<?> getAll() {
 		try {
 			List<Lancamento> list = service.getAll();
@@ -33,7 +33,7 @@ public class LancamentoController {
 		}
 	}
 
-	@GetMapping(path = { "/{id}", "/get-id/{id}", "/id/{id}" })
+	@GetMapping(path = { "/{id}", "/get-id/{id}", "/get_id/{id}", "/id/{id}" })
 	public ResponseEntity<?> getById(@PathVariable int id) {
 		try {
 			return ResponseEntity.ok(service.getById(id));

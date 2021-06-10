@@ -16,6 +16,9 @@ public class CondutorService {
 	@Autowired
 	private CondutorRepository repository;
 
+	@Autowired
+	VeiculoService veiculoService;
+
 	public List<Condutor> getAll() {
 		List<CondutorEntity> list = repository.findAll();
 		return fromTo(list);
@@ -85,14 +88,16 @@ public class CondutorService {
 		repository.delete(fromTo(dto));
 	}
 
-	private Condutor fromTo(CondutorEntity entity) {
-		return new Condutor(entity.getId(), entity.getNome(), entity.getSobrenome(), entity.getDataNascimento(),
+	public Condutor fromTo(CondutorEntity entity) {
+		Condutor dto = new Condutor(entity.getId(), entity.getNome(), entity.getSobrenome(), entity.getDataNascimento(),
 				entity.getEmail(), entity.getSenha(), entity.getTelefone(), entity.getImagem(), entity.getEnderecoCep(),
 				entity.getEnderecoLogradouro(), entity.getEnderecoNumero(), entity.getEnderecoBairro(),
 				entity.getEnderecoCidade(), entity.getEnderecoEstado(), entity.getEnderecoComplemento());
+		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
+		return dto;
 	}
 
-	private List<Condutor> fromTo(List<CondutorEntity> list) {
+	public List<Condutor> fromTo(List<CondutorEntity> list) {
 		List<Condutor> dtoList = new ArrayList<Condutor>();
 		for (CondutorEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -100,7 +105,7 @@ public class CondutorService {
 		return dtoList;
 	}
 
-	private CondutorEntity fromTo(Condutor dto) {
+	public CondutorEntity fromTo(Condutor dto) {
 		return new CondutorEntity(dto.getId(), dto.getNome(), dto.getSobrenome(), dto.getDataNascimento(),
 				dto.getEmail(), dto.getSenha(), dto.getTelefone(), dto.getImagem(), dto.getEnderecoCep(),
 				dto.getEnderecoLogradouro(), dto.getEnderecoNumero(), dto.getEnderecoBairro(), dto.getEnderecoCidade(),

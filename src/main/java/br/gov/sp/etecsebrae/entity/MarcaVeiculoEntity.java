@@ -1,21 +1,28 @@
 package br.gov.sp.etecsebrae.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_marcas_veiculos")
 public class MarcaVeiculoEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY, generator = "sq_marcas_veiculos")
 	private int id;
 
 	@Column(name = "marca", nullable = false, unique = true)
 	private String marca;
+
+	@OneToMany(mappedBy = "tb_marcas_veiculos", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ModeloVeiculoEntity> modelos;
 
 	public MarcaVeiculoEntity() {
 		super();
@@ -41,5 +48,13 @@ public class MarcaVeiculoEntity {
 
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+
+	public List<ModeloVeiculoEntity> getModelos() {
+		return modelos;
+	}
+
+	public void setModelos(List<ModeloVeiculoEntity> modelos) {
+		this.modelos = modelos;
 	}
 }

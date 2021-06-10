@@ -1,6 +1,7 @@
 package br.gov.sp.etecsebrae.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.validation.constraints.NotBlank;
 
@@ -14,6 +15,8 @@ public class Servico implements Serializable {
 
 	@NotBlank
 	private String imagem;
+
+	private List<Lancamento> lancamentos;
 
 	public Servico() {
 		super();
@@ -48,5 +51,13 @@ public class Servico implements Serializable {
 
 	public void setImagem(String imagem) {
 		this.imagem = imagem;
+	}
+
+	public List<Lancamento> getLancamentos() {
+		return lancamentos;
+	}
+
+	public void setLancamentos(List<Lancamento> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 }

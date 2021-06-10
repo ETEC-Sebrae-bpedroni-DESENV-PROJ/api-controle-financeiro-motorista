@@ -18,12 +18,12 @@ import br.gov.sp.etecsebrae.dto.TipoCombustivel;
 import br.gov.sp.etecsebrae.service.TipoCombustivelService;
 
 @RestController
-@RequestMapping({ "/tipo-combustivel" })
+@RequestMapping({ "/tipo-combustivel", "/tipo_combustivel" })
 public class TipoCombustivelController {
 	@Autowired
 	private TipoCombustivelService service;
 
-	@GetMapping(path = { "", "/get-all", "/all" })
+	@GetMapping(path = { "", "/get-all", "/get_all", "/all" })
 	public ResponseEntity<?> getAll() {
 		try {
 			List<TipoCombustivel> list = service.getAll();
@@ -33,7 +33,7 @@ public class TipoCombustivelController {
 		}
 	}
 
-	@GetMapping(path = { "/{id}", "/get-id/{id}", "/id/{id}" })
+	@GetMapping(path = { "/{id}", "/get-id/{id}", "/get_id/{id}", "/id/{id}" })
 	public ResponseEntity<?> getById(@PathVariable int id) {
 		try {
 			return ResponseEntity.ok(service.getById(id));

@@ -16,6 +16,9 @@ public class TipoCombustivelService {
 	@Autowired
 	private TipoCombustivelRepository repository;
 
+	@Autowired
+	VeiculoService veiculoService;
+
 	public List<TipoCombustivel> getAll() {
 		List<TipoCombustivelEntity> list = repository.findAll();
 		return fromTo(list);
@@ -46,11 +49,13 @@ public class TipoCombustivelService {
 		repository.delete(fromTo(dto));
 	}
 
-	private TipoCombustivel fromTo(TipoCombustivelEntity entity) {
-		return new TipoCombustivel(entity.getId(), entity.getTipoCombustivel());
+	public TipoCombustivel fromTo(TipoCombustivelEntity entity) {
+		TipoCombustivel dto = new TipoCombustivel(entity.getId(), entity.getTipoCombustivel());
+		dto.setVeiculos(veiculoService.fromTo(entity.getVeiculos()));
+		return dto;
 	}
 
-	private List<TipoCombustivel> fromTo(List<TipoCombustivelEntity> list) {
+	public List<TipoCombustivel> fromTo(List<TipoCombustivelEntity> list) {
 		List<TipoCombustivel> dtoList = new ArrayList<TipoCombustivel>();
 		for (TipoCombustivelEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -58,7 +63,7 @@ public class TipoCombustivelService {
 		return dtoList;
 	}
 
-	private TipoCombustivelEntity fromTo(TipoCombustivel dto) {
+	public TipoCombustivelEntity fromTo(TipoCombustivel dto) {
 		return new TipoCombustivelEntity(dto.getId(), dto.getTipoCombustivel());
 	}
 }

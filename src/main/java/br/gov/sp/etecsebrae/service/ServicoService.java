@@ -16,6 +16,9 @@ public class ServicoService {
 	@Autowired
 	private ServicoRepository repository;
 
+	@Autowired
+	LancamentoService lancamentoService;
+
 	public List<Servico> getAll() {
 		List<ServicoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -49,11 +52,13 @@ public class ServicoService {
 		repository.delete(fromTo(dto));
 	}
 
-	private Servico fromTo(ServicoEntity entity) {
-		return new Servico(entity.getId(), entity.getServico(), entity.getImagem());
+	public Servico fromTo(ServicoEntity entity) {
+		Servico dto = new Servico(entity.getId(), entity.getServico(), entity.getImagem());
+		dto.setLancamentos(lancamentoService.fromTo(entity.getLancamentos()));
+		return dto;
 	}
 
-	private List<Servico> fromTo(List<ServicoEntity> list) {
+	public List<Servico> fromTo(List<ServicoEntity> list) {
 		List<Servico> dtoList = new ArrayList<Servico>();
 		for (ServicoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -61,7 +66,7 @@ public class ServicoService {
 		return dtoList;
 	}
 
-	private ServicoEntity fromTo(Servico dto) {
+	public ServicoEntity fromTo(Servico dto) {
 		return new ServicoEntity(dto.getId(), dto.getServico(), dto.getImagem());
 	}
 }

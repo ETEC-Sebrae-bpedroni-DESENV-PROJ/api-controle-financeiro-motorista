@@ -16,6 +16,9 @@ public class MarcaVeiculoService {
 	@Autowired
 	private MarcaVeiculoRepository repository;
 
+	@Autowired
+	ModeloVeiculoService modeloVeiculoService;
+
 	public List<MarcaVeiculo> getAll() {
 		List<MarcaVeiculoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -46,11 +49,13 @@ public class MarcaVeiculoService {
 		repository.delete(fromTo(dto));
 	}
 
-	private MarcaVeiculo fromTo(MarcaVeiculoEntity entity) {
-		return new MarcaVeiculo(entity.getId(), entity.getMarca());
+	public MarcaVeiculo fromTo(MarcaVeiculoEntity entity) {
+		MarcaVeiculo dto = new MarcaVeiculo(entity.getId(), entity.getMarca());
+		dto.setModelos(modeloVeiculoService.fromTo(entity.getModelos()));
+		return dto;
 	}
 
-	private List<MarcaVeiculo> fromTo(List<MarcaVeiculoEntity> list) {
+	public List<MarcaVeiculo> fromTo(List<MarcaVeiculoEntity> list) {
 		List<MarcaVeiculo> dtoList = new ArrayList<MarcaVeiculo>();
 		for (MarcaVeiculoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -58,7 +63,7 @@ public class MarcaVeiculoService {
 		return dtoList;
 	}
 
-	private MarcaVeiculoEntity fromTo(MarcaVeiculo dto) {
+	public MarcaVeiculoEntity fromTo(MarcaVeiculo dto) {
 		return new MarcaVeiculoEntity(dto.getId(), dto.getMarca());
 	}
 }

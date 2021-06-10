@@ -16,6 +16,9 @@ public class TipoVeiculoService {
 	@Autowired
 	private TipoVeiculoRepository repository;
 
+	@Autowired
+	ModeloVeiculoService modeloVeiculoService;
+
 	public List<TipoVeiculo> getAll() {
 		List<TipoVeiculoEntity> list = repository.findAll();
 		return fromTo(list);
@@ -46,11 +49,13 @@ public class TipoVeiculoService {
 		repository.delete(fromTo(dto));
 	}
 
-	private TipoVeiculo fromTo(TipoVeiculoEntity entity) {
-		return new TipoVeiculo(entity.getId(), entity.getTipo());
+	public TipoVeiculo fromTo(TipoVeiculoEntity entity) {
+		TipoVeiculo dto = new TipoVeiculo(entity.getId(), entity.getTipo());
+		dto.setModelos(modeloVeiculoService.fromTo(entity.getModelos()));
+		return dto;
 	}
 
-	private List<TipoVeiculo> fromTo(List<TipoVeiculoEntity> list) {
+	public List<TipoVeiculo> fromTo(List<TipoVeiculoEntity> list) {
 		List<TipoVeiculo> dtoList = new ArrayList<TipoVeiculo>();
 		for (TipoVeiculoEntity entity : list) {
 			dtoList.add(fromTo(entity));
@@ -58,7 +63,7 @@ public class TipoVeiculoService {
 		return dtoList;
 	}
 
-	private TipoVeiculoEntity fromTo(TipoVeiculo dto) {
+	public TipoVeiculoEntity fromTo(TipoVeiculo dto) {
 		return new TipoVeiculoEntity(dto.getId(), dto.getTipo());
 	}
 }

@@ -1,0 +1,3 @@
+id_veiculo,id_servico,entrada,valor,data,descricao
+1,1,1,50.0,2021-06-01,Corrida ETEC
+1,2,0,30.0,2021-06-01,Gasolina

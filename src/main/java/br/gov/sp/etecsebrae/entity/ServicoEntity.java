@@ -24,7 +24,7 @@ public class ServicoEntity {
 	@Column(name = "imagem", nullable = false)
 	private byte[] imagem;
 
-	@OneToMany(mappedBy = "servico", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "servico", cascade = CascadeType.ALL, orphanRemoval = false)
 	private List<LancamentoEntity> lancamentos;
 
 	public ServicoEntity() {

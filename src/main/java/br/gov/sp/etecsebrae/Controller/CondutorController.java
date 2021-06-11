@@ -42,6 +42,15 @@ public class CondutorController {
 		}
 	}
 
+	@GetMapping(path = { "/email/{email}", "/get-email/{email}", "/get_email/{email}" })
+	public ResponseEntity<?> getByEmail(@PathVariable String email) {
+		try {
+			return ResponseEntity.ok(service.getByEmail(email));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
+		}
+	}
+
 	@PostMapping(path = { "", "/add", "/create" }, consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> save(@RequestBody Condutor dto) {
 		try {

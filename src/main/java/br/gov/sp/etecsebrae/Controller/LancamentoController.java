@@ -33,16 +33,6 @@ public class LancamentoController {
 		}
 	}
 
-	@GetMapping(path = { "/veiculo/{id}", "/veiculo/get-id/{id}", "/veiculo/get_id/{id}", "/veiculo/id/{id}" })
-	public ResponseEntity<?> getByIdVeiculo(@PathVariable int id) {
-		try {
-			List<Lancamento> list = service.getByIdVeiculo(id);
-			return ResponseEntity.ok(list);
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
-		}
-	}
-
 	@GetMapping(path = { "/condutor/{id}", "/condutor/get-id/{id}", "/condutor/get_id/{id}", "/condutor/id/{id}" })
 	public ResponseEntity<?> getByIdCondutor(@PathVariable int id) {
 		try {

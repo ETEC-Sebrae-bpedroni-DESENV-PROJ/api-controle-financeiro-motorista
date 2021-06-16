@@ -21,8 +21,8 @@ public class LancamentoEntity {
 	private int id;
 
 	@ManyToOne
-	@JoinColumn(name = "id_veiculo", referencedColumnName = "id", nullable = false)
-	private VeiculoEntity veiculo;
+	@JoinColumn(name = "id_condutor", referencedColumnName = "id", nullable = false)
+	private CondutorEntity condutor;
 
 	@ManyToOne
 	@JoinColumn(name = "id_servico", referencedColumnName = "id", nullable = false)
@@ -48,11 +48,11 @@ public class LancamentoEntity {
 		super();
 	}
 
-	public LancamentoEntity(int id, VeiculoEntity veiculo, ServicoEntity servico, int entrada, double valor, Date data,
+	public LancamentoEntity(int id, CondutorEntity condutor, ServicoEntity servico, int entrada, double valor, Date data,
 			String descricao, String infoAdicional) {
 		super();
 		this.id = id;
-		this.veiculo = veiculo;
+		this.condutor = condutor;
 		this.servico = servico;
 		this.entrada = entrada;
 		this.valor = valor;
@@ -69,12 +69,12 @@ public class LancamentoEntity {
 		this.id = id;
 	}
 
-	public VeiculoEntity getVeiculo() {
-		return veiculo;
+	public CondutorEntity getCondutor() {
+		return condutor;
 	}
 
-	public void setVeiculo(VeiculoEntity veiculo) {
-		this.veiculo = veiculo;
+	public void setCondutor(CondutorEntity condutor) {
+		this.condutor = condutor;
 	}
 
 	public ServicoEntity getServico() {

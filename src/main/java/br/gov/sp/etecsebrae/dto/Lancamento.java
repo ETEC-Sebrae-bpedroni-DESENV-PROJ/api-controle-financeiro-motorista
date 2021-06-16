@@ -11,7 +11,7 @@ public class Lancamento implements Serializable {
 
 	private int id;
 
-	private Veiculo veiculo;
+	private Condutor condutor;
 
 	@NotNull
 	private int idVeiculo;
@@ -60,12 +60,12 @@ public class Lancamento implements Serializable {
 		this.id = id;
 	}
 
-	public Veiculo getVeiculo() {
-		return veiculo;
+	public Condutor getCondutor() {
+		return condutor;
 	}
 
-	public void setVeiculo(Veiculo veiculo) {
-		this.veiculo = veiculo;
+	public void setCondutor(Condutor condutor) {
+		this.condutor = condutor;
 	}
 
 	public int getIdVeiculo() {

@@ -8,9 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.gov.sp.etecsebrae.dto.Lancamento;
+import br.gov.sp.etecsebrae.entity.CondutorEntity;
 import br.gov.sp.etecsebrae.entity.LancamentoEntity;
 import br.gov.sp.etecsebrae.entity.ServicoEntity;
-import br.gov.sp.etecsebrae.entity.VeiculoEntity;
 import br.gov.sp.etecsebrae.repository.LancamentoRepository;
 
 @Service
@@ -19,7 +19,7 @@ public class LancamentoService {
 	private LancamentoRepository repository;
 
 	@Autowired
-	private VeiculoService veiculoService;
+	private CondutorService condutorService;
 
 	@Autowired
 	private ServicoService servicoService;
@@ -29,20 +29,10 @@ public class LancamentoService {
 		return fromTo(list);
 	}
 
-	public List<Lancamento> getByIdVeiculo(int idVeiculo) throws Exception {
-		try {
-			List<LancamentoEntity> list = repository.findAll().stream().filter(p -> p.getVeiculo().getId() == idVeiculo)
-					.collect(Collectors.toList());
-			return fromTo(list);
-		} catch (Exception e) {
-			throw new Exception("Os lançamentos do veículo não foram encontrado no sistema.");
-		}
-	}
-
 	public List<Lancamento> getByIdCondutor(int idCondutor) throws Exception {
 		try {
 			List<LancamentoEntity> list = repository.findAll().stream()
-					.filter(p -> p.getVeiculo().getCondutor().getId() == idCondutor).collect(Collectors.toList());
+					.filter(p -> p.getCondutor().getId() == idCondutor).collect(Collectors.toList());
 			return fromTo(list);
 		} catch (Exception e) {
 			throw new Exception("Os lançamentos do condutor não foram encontrado no sistema.");
@@ -71,10 +61,10 @@ public class LancamentoService {
 	}
 
 	public Lancamento fromTo(LancamentoEntity entity) {
-		Lancamento dto = new Lancamento(entity.getId(), entity.getVeiculo().getId(), entity.getServico().getId(),
+		Lancamento dto = new Lancamento(entity.getId(), entity.getCondutor().getId(), entity.getServico().getId(),
 				entity.getEntrada(), entity.getValor(), entity.getData(), entity.getDescricao(),
 				entity.getInfoAdicional());
-		dto.setVeiculo(veiculoService.fromTo(entity.getVeiculo()));
+		dto.setCondutor(condutorService.fromTo(entity.getCondutor()));
 		dto.setServico(servicoService.fromTo(entity.getServico()));
 		return dto;
 	}
@@ -88,9 +78,9 @@ public class LancamentoService {
 	}
 
 	public LancamentoEntity fromTo(Lancamento dto) throws Exception {
-		VeiculoEntity veiculo = veiculoService.fromTo(veiculoService.getById(dto.getIdVeiculo()));
+		CondutorEntity condutor = condutorService.fromTo(condutorService.getById(dto.getIdVeiculo()));
 		ServicoEntity servico = servicoService.fromTo(servicoService.getById(dto.getIdServico()));
-		return new LancamentoEntity(dto.getId(), veiculo, servico, dto.getEntrada(), dto.getValor(), dto.getData(),
+		return new LancamentoEntity(dto.getId(), condutor, servico, dto.getEntrada(), dto.getValor(), dto.getData(),
 				dto.getDescricao(), dto.getInfoAdicional());
 	}
 }

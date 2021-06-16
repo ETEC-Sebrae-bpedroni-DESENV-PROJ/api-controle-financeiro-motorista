@@ -65,7 +65,7 @@ public class CondutorEntity {
 	private String enderecoComplemento;
 
 	@OneToMany(mappedBy = "condutor", cascade = CascadeType.ALL, orphanRemoval = false)
-	private List<VeiculoEntity> veiculos;
+	private List<LancamentoEntity> lancamentos;
 
 	public CondutorEntity() {
 		super();
@@ -212,11 +212,11 @@ public class CondutorEntity {
 		this.enderecoComplemento = enderecoComplemento;
 	}
 
-	public List<VeiculoEntity> getVeiculos() {
-		return veiculos;
+	public List<LancamentoEntity> getLancamentos() {
+		return lancamentos;
 	}
 
-	public void setVeiculos(List<VeiculoEntity> veiculos) {
-		this.veiculos = veiculos;
+	public void setLancamentos(List<LancamentoEntity> lancamentos) {
+		this.lancamentos = lancamentos;
 	}
 }

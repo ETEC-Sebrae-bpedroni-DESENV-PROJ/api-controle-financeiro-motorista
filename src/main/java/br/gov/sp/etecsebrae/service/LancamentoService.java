@@ -78,7 +78,7 @@ public class LancamentoService {
 	}
 
 	public LancamentoEntity fromTo(Lancamento dto) throws Exception {
-		CondutorEntity condutor = condutorService.fromTo(condutorService.getById(dto.getIdVeiculo()));
+		CondutorEntity condutor = condutorService.fromTo(condutorService.getById(dto.getIdCondutor()));
 		ServicoEntity servico = servicoService.fromTo(servicoService.getById(dto.getIdServico()));
 		return new LancamentoEntity(dto.getId(), condutor, servico, dto.getEntrada(), dto.getValor(), dto.getData(),
 				dto.getDescricao(), dto.getInfoAdicional());
